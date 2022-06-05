@@ -16,6 +16,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 public abstract class BucketItemMixin {
     @Redirect(method="getEmptySuccessItem", at=@At(value="FIELD", target = "Lnet/minecraft/world/entity/player/Abilities;instabuild:Z"))
     private static boolean override(Abilities instance, ItemStack p_40700_, Player p_40701_) {
+
         return instance.instabuild || 0 < EnchantmentHelper.getItemEnchantmentLevel(BoundlessEnchantments.BOUNDLESS.get(),p_40700_);
     }
 }

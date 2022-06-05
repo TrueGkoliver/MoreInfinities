@@ -1,0 +1,36 @@
+{
+  "required": true,
+  "package": "com.gkoliver.boundless.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "refmap": "boundless.refmap.json",
+  "mixins": [
+    "BlockItemMixin",
+    "BowlFoodItemMixin",
+    "BucketItemMixin",
+    "dispenser.DefaultDispenseItemBehaviorMixin",
+    "dispenser.BucketDispenseBehaviorMixin",
+    "dispenser.DispenseItemBehaviorMixin",
+    "dispenser.AbstractProjectileDispenseBehaviorMixin",
+    "dispenser.ArrowDispenseBehaviorMixin",
+    "dispenser.SpectralArrowDispenseBehaviorMixin",
+    "EggItemMixin",
+    "EnderEyeItemMixin",
+    "EnderPearlItemMixin",
+    "ExperienceBottleItemMixin",
+    "EyeOfEnderMixin",
+    "FireChargeItemMixin",
+    "FireworkRocketItemMixin",
+    "ItemUtilsMixin",
+    "LivingEntityMixin",
+    "MilkBucketItemMixin",
+    "PotionItemMixin",
+    "SnowballItemMixin",
+    "SolidBucketItemMixin",
+    "ThrowablePotionItemMixin",
+    "BoneMealItemMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "minVersion": "0.8"
+}

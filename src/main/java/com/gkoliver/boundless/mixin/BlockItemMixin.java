@@ -1,9 +1,11 @@
 package com.gkoliver.boundless.mixin;
 
 import com.gkoliver.boundless.BoundlessConfig;
+import com.gkoliver.boundless.BoundlessEnchantment;
 import net.minecraft.world.entity.player.Abilities;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.SolidBucketItem;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -17,7 +19,7 @@ public abstract class BlockItemMixin extends Item {
 
     @Redirect(method="place", at=@At(value="FIELD", target = "Lnet/minecraft/world/entity/player/Abilities;instabuild:Z"))
     private boolean redirCreative(Abilities instance) {
-        return (this.getClass().equals(SolidBucketItem.class) && BoundlessConfig.buckets()) || instance.instabuild;
+        return (this.getClass().equals(SolidBucketItem.class)&& BoundlessConfig.buckets()) || instance.instabuild;
     }
 
 }

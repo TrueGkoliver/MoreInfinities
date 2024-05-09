@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
-@Mixin(targets = {"net.minecraft.core.dispenser.DispenseItemBehavior$14", "net.minecraft.core.dispenser.DispenseItemBehavior$15"})
+@Mixin(targets = {"net.minecraft.core.dispenser.DispenseItemBehavior$9", "net.minecraft.core.dispenser.DispenseItemBehavior$14", "net.minecraft.core.dispenser.DispenseItemBehavior$15", "net.minecraft.core.dispenser.DispenseItemBehavior$20"})
 public abstract class DispenseItemBehaviorMixin {
     @Redirect(method = "execute", at=@At(value="INVOKE", target = "Lnet/minecraft/world/item/ItemStack;shrink(I)V"))
     private void redir(ItemStack instance, int p_41775_) {

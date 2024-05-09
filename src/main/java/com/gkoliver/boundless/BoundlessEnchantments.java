@@ -8,4 +8,5 @@ import net.minecraftforge.registries.RegistryObject;
 public class BoundlessEnchantments {
     public static final DeferredRegister<Enchantment> ENCHANTMENTS = DeferredRegister.create(ForgeRegistries.ENCHANTMENTS, "boundless");
     public static final RegistryObject<Enchantment> BOUNDLESS = ENCHANTMENTS.register("boundless", ()->new BoundlessEnchantment(Enchantment.Rarity.VERY_RARE));
+
 }

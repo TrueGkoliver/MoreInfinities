@@ -6,6 +6,7 @@ import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.player.Abilities;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.FireworkRocketEntity;
 import net.minecraft.world.item.FireworkRocketItem;
@@ -18,6 +19,7 @@ import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import net.minecraft.world.item.ItemStack;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
@@ -28,17 +30,15 @@ public abstract class FireworkRocketItemMixin extends Item {
         super(p_41383_);
     }
 
-    @Inject(method = "useOn", at=@At(shift=At.Shift.BEFORE, value = "INVOKE", target = "Lnet/minecraft/world/item/ItemStack;shrink(I)V"), locals = LocalCapture.CAPTURE_FAILHARD)
-    private void endEarly(UseOnContext p_41216_, CallbackInfoReturnable<InteractionResult> cir, Level level, ItemStack itemstack, Vec3 vec3, Direction direction, FireworkRocketEntity fireworkrocketentity) {
-        if (0 < EnchantmentHelper.getItemEnchantmentLevel(BoundlessEnchantments.BOUNDLESS.get(),itemstack)) {
-            cir.setReturnValue(InteractionResult.sidedSuccess(level.isClientSide));
+    @Redirect(method = "useOn", at=@At(value="INVOKE", target = "Lnet/minecraft/world/item/ItemStack;shrink(I)V"))
+    private void endEarly(ItemStack instance, int p_41775_) {
+        if (!(0 < EnchantmentHelper.getItemEnchantmentLevel(BoundlessEnchantments.BOUNDLESS.get(),instance))) {
+            instance.shrink(p_41775_);
         }
     }
-    @Inject(method = "use", cancellable = true, at=@At(value="INVOKE", target = "Lnet/minecraft/world/level/Level;addFreshEntity(Lnet/minecraft/world/entity/Entity;)Z", shift = At.Shift.AFTER), locals = LocalCapture.CAPTURE_FAILHARD)
-    private void endEarly(Level p_41218_, Player p_41219_, InteractionHand p_41220_, CallbackInfoReturnable<InteractionResultHolder<ItemStack>> cir, ItemStack itemstack) {
-        if (0 < EnchantmentHelper.getItemEnchantmentLevel(BoundlessEnchantments.BOUNDLESS.get(),itemstack)) {
-            p_41219_.awardStat(Stats.ITEM_USED.get(this));
-            cir.setReturnValue(InteractionResultHolder.sidedSuccess(p_41219_.getItemInHand(p_41220_), p_41218_.isClientSide()));
-        }
+    @Redirect(method = "use", at=@At(value = "FIELD", target = "Lnet/minecraft/world/entity/player/Abilities;instabuild:Z"))
+    private boolean endEarly(Abilities instance, Level p_41218_, Player p_41219_, InteractionHand p_41220_) {
+        ItemStack itemstack = p_41219_.getItemInHand(p_41220_);
+        return (instance.instabuild || 0 < EnchantmentHelper.getItemEnchantmentLevel(BoundlessEnchantments.BOUNDLESS.get(),itemstack));
     }
 }

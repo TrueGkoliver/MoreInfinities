@@ -1,5 +1,6 @@
 package com.gkoliver.boundless;
 
+import com.gkoliver.boundless.mixin.EndCrystalItemMixin;
 import com.gkoliver.boundless.mixin.EnderPearlItemMixin;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.projectile.EyeOfEnder;
@@ -27,7 +28,12 @@ public class BoundlessEnchantment extends Enchantment  {
                 (item instanceof EnderEyeItem && BoundlessConfig.endereyes()) ||
                 (item instanceof FireChargeItem && BoundlessConfig.fireCharges()) ||
                 (item instanceof ArrowItem && BoundlessConfig.arrows()) ||
-                (item instanceof BoneMealItem && BoundlessConfig.boneMeal());
+                (item instanceof BoneMealItem && BoundlessConfig.boneMeal()) ||
+                (item instanceof FireworkRocketItem && BoundlessConfig.fireworks()) ||
+                (item == Items.TOTEM_OF_UNDYING && BoundlessConfig.totems()) ||
+                (item instanceof SpawnEggItem && BoundlessConfig.mobEggs()) ||
+                (item instanceof EndCrystalItem && BoundlessConfig.enderCrystals()) ||
+                (item==Items.TNT && BoundlessConfig.tnt());
     });
     public BoundlessEnchantment(Enchantment.Rarity p_44584_, EquipmentSlot... p_44585_) {
         super(p_44584_, BOUNDLESS, p_44585_);
